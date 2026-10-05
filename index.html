@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#050505" />
+<title>EDOLUS — Intelligence at Planetary Scale</title>
+<meta name="description" content="Orchestrating the foundation of artificial intelligence from the edge of the atmosphere." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050505'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%235b8cff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%238fb4ff'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-theme="space">
+
+<!-- ============ BOOT / PRELOADER ============ -->
+<div id="boot" class="boot" aria-hidden="false">
+  <div class="boot__inner">
+    <div class="boot__mark">EDOLUS</div>
+    <div class="boot__bar"><span id="bootFill"></span></div>
+    <div class="boot__status">
+      <span id="bootPct">000</span>% &nbsp;/&nbsp; <span id="bootMsg">ESTABLISHING UPLINK</span>
+    </div>
+  </div>
+  <div class="boot__grid"></div>
+</div>
+
+<!-- ============ WEBGL CANVAS (fixed, behind everything) ============ -->
+<canvas id="gl" class="gl-canvas" aria-hidden="true"></canvas>
+<div class="gl-fallback" id="glFallback" aria-hidden="true"></div>
+
+<!-- ============ SCROLL PROGRESS / ORBITAL HUD RAIL ============ -->
+<div class="rail" aria-hidden="true">
+  <div class="rail__track"><span id="railFill"></span></div>
+  <ol class="rail__nodes" id="railNodes">
+    <li data-target="hero" class="is-active"><span></span><em>ORBIT</em></li>
+    <li data-target="mesh"><span></span><em>MESH</em></li>
+    <li data-target="compute"><span></span><em>COMPUTE</em></li>
+    <li data-target="telemetry"><span></span><em>TELEMETRY</em></li>
+    <li data-target="specs"><span></span><em>SPECS</em></li>
+    <li data-target="access"><span></span><em>ACCESS</em></li>
+  </ol>
+</div>
+
+<!-- ============ TOP STATUS BAR ============ -->
+<header class="hudbar" id="hudbar">
+  <div class="hudbar__left">
+    <span class="hudbar__logo">EDOLUS</span>
+    <span class="hudbar__div"></span>
+    <span class="hudbar__sys">ORBITAL AI INFRASTRUCTURE</span>
+  </div>
+  <div class="hudbar__right">
+    <span class="hudbar__stat"><i class="dot"></i><span id="hudNodes">1,204</span> NODES</span>
+    <span class="hudbar__stat hide-sm">LAT <span id="hudLat">12.4</span>MS</span>
+    <span class="hudbar__clock" id="hudClock">00:00:00 UTC</span>
+    <button class="hudbar__audio" id="audioToggleTop" aria-label="Toggle audio">
+      <span class="icon-audio" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ SECTION 1 — HERO OVERLAY ============ -->
+<section id="hero" class="section hero" data-section="hero">
+  <div class="hero__content">
+    <p class="hero__eyebrow reveal" data-reveal>EDOLUS&nbsp;&nbsp;//&nbsp;&nbsp;LOW EARTH ORBIT NETWORK</p>
+    <h1 class="hero__title">
+      <span class="line"><span class="reveal" data-reveal>INTELLIGENCE</span></span>
+      <span class="line"><span class="reveal" data-reveal>AT PLANETARY SCALE</span></span>
+    </h1>
+    <p class="hero__sub reveal" data-reveal>ORCHESTRATING THE FOUNDATION OF ARTIFICIAL INTELLIGENCE<br class="hide-sm" /> FROM THE EDGE OF THE ATMOSPHERE.</p>
+
+    <div class="hero__cta reveal" data-reveal>
+      <button class="btn-cta" id="initiateBtn">
+        <span class="btn-cta__frame" aria-hidden="true"></span>
+        <span class="btn-cta__label">INITIATE SYSTEM</span>
+        <span class="btn-cta__sub">PRESS TO ENGAGE</span>
+      </button>
+    </div>
+
+    <div class="hero__hint reveal" data-reveal>
+      <span class="icon-headphones" aria-hidden="true"></span>
+      <span>EXPERIENCE WITH HEADPHONES</span>
+    </div>
+  </div>
+
+  <div class="hero__coords" aria-hidden="true">
+    <span>LAT <b id="heroLat">00.000</b></span>
+    <span>LON <b id="heroLon">00.000</b></span>
+    <span>ALT <b id="heroAlt">408</b> KM</span>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — ORBIT / MESH / COMPUTE / TELEMETRY ============ -->
+<section id="mesh" class="section band" data-section="mesh">
+  <div class="band__inner">
+    <div class="panel panel--left reveal" data-reveal>
+      <div class="panel__corner tl"></div><div class="panel__corner tr"></div>
+      <div class="panel__corner bl"></div><div class="panel__corner br"></div>
+      <span class="tag">LAYER 01</span>
+      <h2 class="panel__title">GLOBAL COVERAGE<br /><em>&amp; DATA MESH</em></h2>
+      <p class="panel__body">A lattice of 1,204 edge nodes renders inference across every continent. Signal routes resolve in under 20&nbsp;milliseconds, dynamically re-meshing as the constellation tracks the terminator line.</p>
+      <ul class="statlist" id="meshStats">
+        <li><span>NODES ONLINE</span><b data-count="1204">0</b></li>
+        <li><span>CONTINENTS</span><b data-count="7">0</b></li>
+        <li><span>MESH UPTIME</span><b data-count="99.99" data-decimals="2">0</b>%</li>
+        <li><span>ROUTES / SEC</span><b data-count="48000" data-compact="1">0</b></li>
+      </ul>
+      <p class="panel__note">SELECT A NODE ON THE GLOBE TO INSPECT TELEMETRY</p>
+    </div>
+  </div>
+</section>
+
+<section id="compute" class="section band band--right" data-section="compute">
+  <div class="band__inner">
+    <div class="panel panel--right reveal" data-reveal>
+      <div class="panel__corner tl"></div><div class="panel__corner tr"></div>
+      <div class="panel__corner bl"></div><div class="panel__corner br"></div>
+      <span class="tag">LAYER 02</span>
+      <h2 class="panel__title">ORBITAL AI<br /><em>COMPUTE</em></h2>
+      <p class="panel__body">Radiation-hardened tensor accelerators process model weights in-situ. No round-trip to terrestrial data centres — the inference happens where the data is born.</p>
+      <div class="specgrid">
+        <div class="spec"><span>PEAK THROUGHPUT</span><b>42.8</b><i>PFLOPS / SATELLITE</i></div>
+        <div class="spec"><span>ONBOARD MEMORY</span><b>1.5</b><i>TB HBM3E</i></div>
+        <div class="spec"><span>THERMAL ENVELOPE</span><b>-40/+85</b><i>°C QUALIFIED</i></div>
+        <div class="spec"><span>POWER BUDGET</span><b>3.2</b><i>KW SOLAR ARRAY</i></div>
+      </div>
+      <div class="meter">
+        <span class="meter__label">EDGE INFERENCE LOAD</span>
+        <div class="meter__bar"><span data-meter="73"></span></div>
+        <span class="meter__val" data-meter-val>73%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="telemetry" class="section band" data-section="telemetry">
+  <div class="band__inner">
+    <div class="panel reveal" data-reveal>
+      <div class="panel__corner tl"></div><div class="panel__corner tr"></div>
+      <div class="panel__corner bl"></div><div class="panel__corner br"></div>
+      <span class="tag">LAYER 03</span>
+      <h2 class="panel__title">SYSTEM ARCHITECTURE<br /><em>&amp; TRANSMISSION METRICS</em></h2>
+      <p class="panel__body">Live downlink telemetry from the primary orbital shell. Metrics are simulated at 1&nbsp;Hz and mirror the production dashboards of the Edolus ground segment.</p>
+
+      <div class="telemetry">
+        <div class="telemetry__chart">
+          <div class="telemetry__chart-head">
+            <span>DOWNLINK THROUGHPUT</span><b><span id="tputVal">0.0</span> GB/S</b>
+          </div>
+          <canvas id="spark" width="640" height="160" aria-label="Throughput history"></canvas>
+        </div>
+        <div class="telemetry__gauges">
+          <div class="gauge" data-gauge="72">
+            <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="g-track" cx="60" cy="60" r="52"/><circle class="g-fill" cx="60" cy="60" r="52"/></svg>
+            <div class="gauge__mid"><b data-gauge-val>72</b><span>SIGNAL</span></div>
+          </div>
+          <div class="gauge" data-gauge="91">
+            <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="g-track" cx="60" cy="60" r="52"/><circle class="g-fill" cx="60" cy="60" r="52"/></svg>
+            <div class="gauge__mid"><b data-gauge-val>91</b><span>THERMAL</span></div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="statlist statlist--inline" id="telemetryStats">
+        <li><span>PACKET LOSS</span><b id="lossVal">0.02</b>%</li>
+        <li><span>ORBITAL PERIOD</span><b>92.68</b>MIN</li>
+        <li><span>INCLINATION</span><b>53.0</b>°</li>
+        <li><span>GROUND STATIONS</span><b>24</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — TECH SPECS / HUD GRID ============ -->
+<section id="specs" class="section specs" data-section="specs">
+  <div class="specs__head">
+    <span class="tag">SYSTEM MANIFEST</span>
+    <h2 class="specs__title reveal" data-reveal>TECHNICAL<br />SPECIFICATIONS</h2>
+  </div>
+
+  <div class="specs__grid">
+    <article class="hud-card reveal" data-reveal>
+      <div class="hud-card__id">SYS.01</div>
+      <h3>ORBITAL PARAMETERS</h3>
+      <dl>
+        <div><dt>ALTITUDE</dt><dd>408 KM</dd></div>
+        <div><dt>INCLINATION</dt><dd>53.0°</dd></div>
+        <div><dt>PERIOD</dt><dd>92.68 MIN</dd></div>
+        <div><dt>VELOCITY</dt><dd>7.66 KM/S</dd></div>
+        <div><dt>SHELL</dt><dd>LEO / SUN-SYNC</dd></div>
+      </dl>
+    </article>
+
+    <article class="hud-card reveal" data-reveal>
+      <div class="hud-card__id">SYS.02</div>
+      <h3>LOW-LATENCY COMPUTE</h3>
+      <dl>
+        <div><dt>ACCELERATOR</dt><dd>ED-4 TENSOR CORE</dd></div>
+        <div><dt>THROUGHPUT</dt><dd>42.8 PFLOPS</dd></div>
+        <div><dt>MEMORY</dt><dd>1.5 TB HBM3E</dd></div>
+        <div><dt>INTERCONNECT</dt><dd>800 Gbps OPTICAL</dd></div>
+        <div><dt>ENVELOPE</dt><dd>-40/+85 °C</dd></div>
+      </dl>
+    </article>
+
+    <article class="hud-card reveal" data-reveal>
+      <div class="hud-card__id">SYS.03</div>
+      <h3>TRANSMISSION</h3>
+      <dl>
+        <div><dt>BAND</dt><dd>KA / V / OPTICAL</dd></div>
+        <div><dt>DOWNLINK</dt><dd>1.2 TB/S AGG.</dd></div>
+        <div><dt>LATENCY</dt><dd>12.4 MS MED.</dd></div>
+        <div><dt>ENCRYPTION</dt><dd>AES-256 / QKD</dd></div>
+        <div><dt>REDUNDANCY</dt><dd>3X MESH PATH</dd></div>
+      </dl>
+    </article>
+
+    <article class="hud-card reveal" data-reveal>
+      <div class="hud-card__id">SYS.04</div>
+      <h3>MISSION PARAMETERS</h3>
+      <dl>
+        <div><dt>CONSTELLATION</dt><dd>1,204 UNITS</dd></div>
+        <div><dt>DEPLOYED</dt><dd>2024 – 2026</dd></div>
+        <div><dt>DESIGN LIFE</dt><dd>8 YEARS</dd></div>
+        <div><dt>DEORBIT</dt><dd>&lt; 5 YEARS</dd></div>
+        <div><dt>STATUS</dt><dd class="ok">OPERATIONAL</dd></div>
+      </dl>
+    </article>
+  </div>
+
+  <div class="specs__ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>EDOLUS // ORBITAL AI INFRASTRUCTURE // LATENCY 12.4MS // NODES 1204 // SHELL LEO //&nbsp;</span>
+      <span>EDOLUS // ORBITAL AI INFRASTRUCTURE // LATENCY 12.4MS // NODES 1204 // SHELL LEO //&nbsp;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 — ACCESS REQUEST FOOTER ============ -->
+<section id="access" class="section access" data-section="access">
+  <div class="access__inner">
+    <span class="tag">SECURE CHANNEL</span>
+    <h2 class="access__title reveal" data-reveal>REQUEST ENTERPRISE<br />SYSTEM ACCESS</h2>
+    <p class="access__sub reveal" data-reveal>Provisioning is limited to qualified research and infrastructure partners. Transmit your credentials and our orbital operations team will respond within one orbital period.</p>
+
+    <form class="access__form reveal" data-reveal id="accessForm" novalidate>
+      <div class="field">
+        <label for="fOrg">ORGANISATION</label>
+        <input id="fOrg" name="org" type="text" autocomplete="organization" placeholder="ENTER ORGANISATION" required />
+      </div>
+      <div class="field">
+        <label for="fMail">SECURE EMAIL</label>
+        <input id="fMail" name="email" type="email" autocomplete="email" placeholder="name@domain.tld" required />
+      </div>
+      <div class="field field--full">
+        <label for="fMsg">TRANSMISSION</label>
+        <textarea id="fMsg" name="message" rows="3" placeholder="DESCRIBE INTENDED WORKLOAD…"></textarea>
+      </div>
+      <button class="btn-cta btn-cta--sm" type="submit" id="accessSubmit">
+        <span class="btn-cta__frame" aria-hidden="true"></span>
+        <span class="btn-cta__label">TRANSMIT REQUEST</span>
+      </button>
+      <p class="access__status" id="accessStatus" role="status"></p>
+    </form>
+
+    <footer class="footer">
+      <div class="footer__col">
+        <span class="footer__mark">EDOLUS</span>
+        <p>ORBITAL AI INFRASTRUCTURE</p>
+      </div>
+      <div class="footer__col">
+        <span>GROUND SEGMENT</span>
+        <p>24 STATIONS / 6 CONTINENTS</p>
+      </div>
+      <div class="footer__col">
+        <span>TELEMETRY FEED</span>
+        <p id="footerClock">00:00:00 UTC</p>
+      </div>
+      <div class="footer__col footer__col--end">
+        <span>© 2026 EDOLUS SYSTEMS</span>
+        <p>ALL SIGNALS RESERVED</p>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ============ HUD OVERLAY CHROME ============ -->
+<div class="hud-chrome" aria-hidden="true">
+  <div class="hud-chrome__cross tl"></div>
+  <div class="hud-chrome__cross tr"></div>
+  <div class="hud-chrome__cross bl"></div>
+  <div class="hud-chrome__cross br"></div>
+  <div class="hud-chrome__scanline"></div>
+  <div class="hud-chrome__vignette"></div>
+</div>
+
+<!-- ============ NODE INSPECTOR (appears on globe node click) ============ -->
+<aside class="inspector" id="inspector" aria-live="polite" hidden>
+  <button class="inspector__close" id="inspectorClose" aria-label="Close inspector">&times;</button>
+  <span class="tag" id="inspNodeTag">NODE</span>
+  <h3 id="inspNodeName">—</h3>
+  <dl>
+    <div><dt>REGION</dt><dd id="inspRegion">—</dd></div>
+    <div><dt>LOAD</dt><dd id="inspLoad">—</dd></div>
+    <div><dt>LATENCY</dt><dd id="inspLatency">—</dd></div>
+    <div><dt>UPTIME</dt><dd id="inspUptime">—</dd></div>
+  </dl>
+</aside>
+
+<!-- ============ AUDIO CONSENT / MUTE TOGGLE ============ -->
+<button class="audio-fab" id="audioFab" aria-label="Toggle ambient audio" hidden>
+  <span class="icon-audio" aria-hidden="true"></span>
+  <span class="audio-fab__label" id="audioFabLabel">SOUND ON</span>
+</button>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./assets/vendor/three.module.min.js"
+  }
+}
+</script>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
